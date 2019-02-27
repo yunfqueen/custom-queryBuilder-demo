@@ -1,0 +1,68 @@
+/* and,or按钮样式 */
+.group-conditions{
+  width: 75px;
+  height: 25px;
+  background-color: #fafafa;
+  border: 1px solid #d3d3d3;
+  border-radius: 30px;
+  display: inline-block;
+  line-height: 23px;
+  vertical-align: middle;
+  overflow: hidden;
+}
+.group_switch {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 50%;
+  height: 100%;
+  margin: 0;
+  text-align: center;
+  cursor: pointer;
+}
+.group-conditions .active{
+  background: #007bff;
+  border-radius: 30px;
+  color: #fff;
+}
+.custom_disabled_redio{
+  opacity: 0.3;
+}
+/* filter-container */
+.overall-filter-container{
+  display: inline-block;
+  margin: 0 10px 0 0;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+/* 筛选器名称，备注 */
+.box{
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+}
+.input_box{
+  height: 80px;
+  line-height: 80px;
+  float: left;
+}
+.input_box span{
+  width: 100px;
+  height: 100%;
+  text-align: right;
+  display: inline-block;
+}
+.input_box input{
+  width: calc(100% - 110px);
+  height: 30px;
+  line-height: 30px;
+  border: none;
+  border-bottom: 1px solid rgb(189, 188, 188);
+  outline:none;
+}
+.builder_name{
+  width: 30%;
+}
+.remark{
+  width: 70%;
+}

@@ -445,12 +445,12 @@ QueryBuilder.DEFAULTS = {
         'is_null',
         'is_not_null'
     ],
-
+    //所需图标
     icons: {
-        add_group:    'glyphicon glyphicon-plus-sign',
-        add_rule:     'glyphicon glyphicon-plus',
-        remove_group: 'glyphicon glyphicon-remove',
-        remove_rule:  'glyphicon glyphicon-remove',
+        add_group:    '',
+        add_rule:     '',
+        remove_group: '',
+        remove_rule:  '',
         error:        'glyphicon glyphicon-warning-sign'
     }
 };
@@ -1085,7 +1085,7 @@ QueryBuilder.prototype.refreshGroupsConditions = function() {
     (function walk(group) {
         if (!group.flags || (group.flags && !group.flags.condition_readonly)) {
             group.$el.find('>' + QueryBuilder.selectors.group_condition).prop('disabled', group.rules.length <= 1)
-                .parent().toggleClass('disabled', group.rules.length <= 1);
+                .parent().toggleClass('custom_disabled_redio', group.rules.length <= 1);
         }
 
         group.each(null, function(group) {
@@ -2761,8 +2761,8 @@ QueryBuilder.templates.group = '\
     </div> \
     <div class="btn-group group-conditions"> \
       {{~ it.conditions: condition }} \
-        <label class="btn btn-xs btn-primary"> \
-          <input type="radio" name="{{= it.group_id }}_cond" value="{{= condition }}"> {{= it.translate("conditions", condition) }} \
+        <label class="group_switch"> \
+            <input type="radio" name="{{= it.group_id }}_cond" value="{{= condition }}"> {{= it.translate("conditions", condition) }} \
         </label> \
       {{~}} \
     </div> \
