@@ -1738,13 +1738,19 @@ QueryBuilder.prototype.validate = function(options) {
     var valid = (function parse(group) {
         var done = 0;
         var errors = 0;
-
         group.each(function(rule) {
+            //yun add
+            var rule_filter_val = $('#'+rule.id).find("#"+rule.id+"_filter").val();
+            // if(rule_filter_val==-1){
+            //     self.triggerValidationError(rule, 'no_filter', null);
+            //     return;
+            // }
+            //*** 
             if (!rule.filter && options.skip_empty) {
                 return;
             }
-
-            if (!rule.filter) {
+            
+            if (!rule.filter||rule_filter_val==-1) {
                 self.triggerValidationError(rule, 'no_filter', null);
                 errors++;
                 return;
@@ -1815,6 +1821,7 @@ QueryBuilder.prototype.validate = function(options) {
  * @fires QueryBuilder.changer:getRules
  */
 QueryBuilder.prototype.getRules = function(options) {
+    debugger
     options = $.extend({
         get_flags: false,
         allow_invalid: false,
@@ -1823,6 +1830,7 @@ QueryBuilder.prototype.getRules = function(options) {
 
     var valid = this.validate(options);
     if (!valid && !options.allow_invalid) {
+        debugger
         return null;
     }
 
@@ -2072,7 +2080,7 @@ QueryBuilder.prototype.setRules = function(data, options) {
  * @fires QueryBuilder.changer:validateValue
  */
 QueryBuilder.prototype.validateValue = function(rule, value) {
-    console.log(rule)
+    debugger
     var validation = rule.filter.validation || {};
     var result = true;
 
@@ -2104,6 +2112,7 @@ QueryBuilder.prototype.validateValue = function(rule, value) {
  * @private
  */
 QueryBuilder.prototype._validateValue = function(rule, value) {
+    debugger
     var filter = rule.filter;
     var operator = rule.operator;
     var validation = filter.validation || {};
@@ -2963,14 +2972,17 @@ QueryBuilder.prototype.loadTableColumnsInFilter = function(columns, rule_id, tab
 };
 QueryBuilder.prototype.updateColumnCombo = function(options) {
     var self = this;
-    
     $("#"+options.rule_id+"_filter").empty();
     $(".rules-list").find("#"+options.rule_id+"_filter").append('<option value="-1">'+ this.settings.select_placeholder +'</option>');
     $.each(options.columns, function(index, column) {
         self.getExpressionFiltersData(column, options.tableName);
         $(".rules-list").find("#"+options.rule_id+"_filter").append('<option value="'+ column.id +'">'+ column.label +'</option>');
     });
-    this.filters = QueryBuilder.DEFAULTS.filters;
+    if($("#"+options.rule_id).find('.table-filter').val()==-1||!options.columns){
+        this.filters = [];
+    }else{
+        this.filters = QueryBuilder.DEFAULTS.filters;
+    }
     $("#"+options.rule_id).find(QueryBuilder.selectors.operator_container).empty()
     $("#"+options.rule_id).find(QueryBuilder.selectors.value_container).empty()
     
@@ -6274,24 +6286,24 @@ QueryBuilder.regional['en'] = {
     "is_not_null": "is not null"
   },
   "errors": {
-    "no_filter": "No filter selected",
-    "empty_group": "The group is empty",
-    "radio_empty": "No value selected",
-    "checkbox_empty": "No value selected",
-    "select_empty": "No value selected",
-    "string_empty": "Empty value",
+    "no_filter": "没有选择过滤条件",
+    "empty_group": "这个组是空的",
+    "radio_empty": "没有选择值",
+    "checkbox_empty": "没有选择值",
+    "select_empty": "没有选择值",
+    "string_empty": "空值",
     "string_exceed_min_length": "Must contain at least {0} characters",
     "string_exceed_max_length": "Must not contain more than {0} characters",
     "string_invalid_format": "Invalid format ({0})",
-    "number_nan": "Not a number",
-    "number_not_integer": "Not an integer",
-    "number_not_double": "Not a real number",
+    "number_nan": "不是一个数字",
+    "number_not_integer": "不是一个整数",
+    "number_not_double": "不是双数",
     "number_exceed_min": "Must be greater than {0}",
     "number_exceed_max": "Must be lower than {0}",
     "number_wrong_step": "Must be a multiple of {0}",
     "number_between_invalid": "Invalid values, {0} is greater than {1}",
-    "datetime_empty": "Empty value",
-    "datetime_invalid": "Invalid date format ({0})",
+    "datetime_empty": "空值",
+    "datetime_invalid": "无效时间格式({0})",
     "datetime_exceed_min": "Must be after {0}",
     "datetime_exceed_max": "Must be before {0}",
     "datetime_between_invalid": "Invalid values, {0} is greater than {1}",
