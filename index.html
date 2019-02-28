@@ -13,14 +13,25 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css">
     <style>
       /* 开关样式 */
-       
+      .builder_hint{
+        position: absolute;
+        top: 69px;
+        left: 110px;
+        color: #f00;
+        font-size: 12px;
+        font-style: normal;
+        height: 12px;
+        line-height: 12px;
+        display: none;
+      }
     </style>
 </head>
 <body>
     <div class="box">
-      <div class="builder_name input_box"id="builder_name"><span>筛选器名称：</span><input type="text"/></div>
+      <div class="builder_name input_box"id="builder_name"><span>筛选器名称：</span><input type="text"/><em class="builder_hint">该名称已存在</em></div>
       <div class="remark input_box" id="remark"><span>备注：</span><input type="text"/></div>
     </div>
+    
     <div id="builder"></div>
     <div class="btn-group">
       <button class="btn btn-default" disabled>Get:</button>
@@ -35,18 +46,26 @@
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <!-- bootstrap -->
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <!-- moment -->
+    <script src="js/moment.js"></script>
+    <!-- datetimepicker -->
+    <script src="js/bootstrap-datetimepicker.js"></script>
+    <!-- datepicker -->
+    <script src="js/bootstrap-datepicker.js"></script>
     <!-- $.extendext -->
     <script type="text/javascript" src="js/jQuery.extendext.js"></script>
      <!-- doT -->
     <script type="text/javascript" src="js/doT.js"></script>
     <!-- query-builder -->
     <script type="text/javascript" src="js/query-builder.js"></script>
+    
     <!-- interact -->
     <script src="https://unpkg.com/interactjs@1.3.4/dist/interact.min.js"></script>
     
     <script>
+        var obj={'name':'1', 'name':'2',"name":'3'};
         var filter_ = {
-            select:[{id:'PART_LIST',label:'零件类型'},{id:'WORK_LIST',label:'工作项'}],
+            select:[{id:'PART_LIST',label:'零件类型'},{id:'WORK_LIST',label:'工作项'},{id:'TARGET_LIST',label:'任务项'}],
             "PART_LIST":[{
               GT_MODULE_DISPLAY_NAME: "零件",
               GT_MODULE_NAME: "PART_LIST",
@@ -107,8 +126,19 @@
               input: "text",
               label: "计划完成日期",
               type: "date",
+              validation: {
+                format: 'YYYY/MM/DD'
+              },
+              plugin: 'datepicker',
+              plugin_config: {
+                format: 'yyyy/mm/dd',
+                todayBtn: 'linked',
+                todayHighlight: true,
+                autoclose: true
+              },
               field:'WORK_LIST.expected_finish_date',
-            }]
+            }],
+            "TARGET_LIST":[]
         }
         var rules_data = {
         "condition": "AND",
@@ -126,12 +156,12 @@
             "condition": "AND",
             "rules": [
               {
-                "id": "PART_LIST.part_name",
-                "field": "PART_LIST.part_name",
-                "type": "string",
+                "id": "WORK_LIST.expected_finish_date",
+                "field": "WORK_LIST.expected_finish_date",
+                "type": "date",
                 "input": "text",
                 "operator": "not_equal",
-                "value": "落定"
+                "value": "2019/02/07"
               }
             ]
           }
