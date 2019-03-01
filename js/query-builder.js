@@ -3101,7 +3101,7 @@ QueryBuilder.prototype.getRuleInput = function(rule, value_id) {
                 if (validation.max !== undefined) h += ' max="' + validation.max + '"';
                 if (filter.placeholder) h += ' placeholder="' + filter.placeholder + '"';
                 if (filter.size) h += ' size="' + filter.size + '"';
-                h += '>';
+                h += ' autocomplete="off">';
                 break;
 
             default:
@@ -3110,7 +3110,7 @@ QueryBuilder.prototype.getRuleInput = function(rule, value_id) {
                 if (filter.type === 'string' && validation.min !== undefined) h += ' minlength="' + validation.min + '"';
                 if (filter.type === 'string' && validation.max !== undefined) h += ' maxlength="' + validation.max + '"';
                 if (filter.size) h += ' size="' + filter.size + '"';
-                h += '>';
+                h += ' autocomplete="off">';
         }
     }
 
