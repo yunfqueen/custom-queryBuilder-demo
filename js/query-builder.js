@@ -1340,9 +1340,11 @@ QueryBuilder.prototype.updateRuleFilter = function(rule, previousFilter) {
         this.createRuleInput(rule);
         //yun add huitian
         if(rule.filter&&rule.filter.id){
+            // debugger
             var select_id = rule.filter.id.split(".")[0];
             this.filters = this.settings.filters[select_id];
             var filters = this.change('getRuleFilters', this.filters, rule);
+            //回填筛选值
             var h = '<select class="form-control" name="'+ rule.id +'_filter" id="'+ rule.id +'_filter">';
             h+= '<option value="-1">'+ this.settings.select_placeholder +'</option>';
             $.each(this.filters, function(i, filter) {
@@ -1821,7 +1823,6 @@ QueryBuilder.prototype.validate = function(options) {
  * @fires QueryBuilder.changer:getRules
  */
 QueryBuilder.prototype.getRules = function(options) {
-    debugger
     options = $.extend({
         get_flags: false,
         allow_invalid: false,
@@ -1830,7 +1831,6 @@ QueryBuilder.prototype.getRules = function(options) {
 
     var valid = this.validate(options);
     if (!valid && !options.allow_invalid) {
-        debugger
         return null;
     }
 
@@ -2080,7 +2080,6 @@ QueryBuilder.prototype.setRules = function(data, options) {
  * @fires QueryBuilder.changer:validateValue
  */
 QueryBuilder.prototype.validateValue = function(rule, value) {
-    debugger
     var validation = rule.filter.validation || {};
     var result = true;
 
@@ -2112,7 +2111,6 @@ QueryBuilder.prototype.validateValue = function(rule, value) {
  * @private
  */
 QueryBuilder.prototype._validateValue = function(rule, value) {
-    debugger
     var filter = rule.filter;
     var operator = rule.operator;
     var validation = filter.validation || {};

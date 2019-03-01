@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/query-builder.default.css">
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <!-- datepicker -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.css">
     <!-- custom -->
     <link rel="stylesheet" type="text/css" href="css/custom.css">
     <style>
@@ -161,14 +163,30 @@
                 "type": "date",
                 "input": "text",
                 "operator": "not_equal",
-                "value": "2019/02/07"
+                "value": "2019/02/07",
+                "validation": {
+                  "format": 'YYYY/MM/DD'
+                },
+                "plugin": 'datepicker',
+                "plugin_config": {
+                  "format": 'yyyy/mm/dd',
+                  "todayBtn": 'linked',
+                  "todayHighlight": true,
+                  "autoclose": true
+                },
               }
             ]
           }
         ],
         "valid": true
       }
-        $('#builder').queryBuilder({
+      // Fix for Bootstrap Datepicker
+      $('#builder').on('afterUpdateRuleValue.queryBuilder', function(e, rule) {
+          if (rule.filter.plugin === 'datepicker') {
+            rule.$el.find('.rule-value-container input').datepicker('update');
+          }
+        });  
+      $('#builder').queryBuilder({
             plugins: [
                 'sortable', //拖拽插件
                 'bt-tooltip-errors',
@@ -176,6 +194,7 @@
             filters: filter_, //生成器中可用过滤器的数组 该属性为必须属性
             rules: rules_data //回填值，若不需要可传空获不设置该属性
         });
+        
         $('.parse-sql').on('click', function() {
             //$(this).data('stmt')  为dom上的data-stmt用来判断是什么类型
             var res = $('#builder').queryBuilder('getSQL', $(this).data('stmt'), false);
