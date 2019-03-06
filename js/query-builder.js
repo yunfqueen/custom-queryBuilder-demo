@@ -447,11 +447,11 @@ QueryBuilder.DEFAULTS = {
     ],
     //所需图标
     icons: {
-        add_group:    '',
-        add_rule:     '',
-        remove_group: '',
-        remove_rule:  '',
-        error:        'glyphicon glyphicon-warning-sign'
+        add_group:    'iconfont icon-jia',
+        add_rule:     'iconfont icon-jia1',
+        remove_group: 'iconfont icon-cha',
+        remove_rule:  'iconfont icon-cha',
+        error:        'iconfont icon-error-msg'
     }
 };
 
@@ -5228,7 +5228,7 @@ QueryBuilder.extend(/** @lends module:plugins.NotGroup.prototype */ {
  * @param {object} [options]
  * @param {boolean} [options.inherit_no_drop=true]
  * @param {boolean} [options.inherit_no_sortable=true]
- * @param {string} [options.icon='glyphicon glyphicon-sort']
+ * @param {string} [options.icon='iconfont icon-tuozhuai']
  * @throws MissingLibraryError, ConfigError
  */
 QueryBuilder.define('sortable', function(options) {
@@ -5400,7 +5400,7 @@ QueryBuilder.define('sortable', function(options) {
 }, {
     inherit_no_sortable: true,
     inherit_no_drop: true,
-    icon: 'glyphicon glyphicon-sort',
+    icon: 'iconfont icon-tuozhuai',
     disable_template: false
 });
 
